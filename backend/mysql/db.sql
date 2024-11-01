@@ -33,9 +33,10 @@ select * from tb_pacotes;
 create table tb_pacotes(
 id_pacotes int auto_increment primary key,
 nome varchar(200),
-valor decimal(10,2)
+valor varchar(200)
 );
-
+insert into tb_pacotes (nome,valor)
+        values ("teste","testre");
 
 create  table tb_informacoes_financeiros(
 id_informacoes_financeiro int auto_increment primary key,
