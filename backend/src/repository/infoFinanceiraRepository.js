@@ -11,14 +11,7 @@ export async function inserirFinanceiro(financeiroObj) {
 }
 
 export async function consultarFinanceiro() {
-    let comando=`select     p.id_pacotes,
-		                    p.nome,
-                            p.valor as valor_pacote,
-                            i.id_informacoes_financeiro,
-                            i.valor as valor_informacao
-                from tb_pacotes p
-                join tb_informacoes_financeiros i 
-                on p.id_pacotes = i.id_pacotes`
+    let comando=`select * from tb_pacotes;`
                 
     let resposta = await con.query(comando)
     let into = resposta[0]
