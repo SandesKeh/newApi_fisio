@@ -3,11 +3,11 @@ import { Router } from 'express';
 
 const endpoint = Router();
 
-endpoint.post('/insert/pacotes', async (req,resp) => {
+endpoint.post('/insert/pacotes/:nome/:valor', async (req,resp) => {
     try{
-        let pacoteOjs= req.body;
+        let {nome, valor} = req.params;
     
-        let id = await db.inserirPacotes(pacoteOjs);
+        let id = await db.inserirPacotes(nome, valor);
 
         resp.send({
             id: id

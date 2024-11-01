@@ -20,16 +20,16 @@ export async function consultarProfissional() {
     const comando = `
         select  nome    nome,
                 email   email,
-                acesso  temAcesso,
+                acesso  temAcesso
 
-        from db_autonomo_api.tb_adicionar_profissional;
+        from tb_adicionar_profissional;
     `;
 
 
     let respostas = await con.query(comando);
     let registros = respostas[0];
     
-    return registros
+    return registros;
 
 }
 

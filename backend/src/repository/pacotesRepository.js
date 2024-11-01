@@ -1,12 +1,12 @@
 import con from "./connection.js";
 
 
-export async function inserirPacotes(pacoteOjs){
+export async function inserirPacotes(nome, valor){
     let comando = ` insert into tb_pacotes (nome,valor)
-        values (?,?)
+                    values (?,?)
     `;
 
-    let resposta = await con.query (comando, [pacoteOjs.nome, pacoteOjs.valor]);
+    let resposta = await con.query (comando, [nome, valor]);
     let into = resposta[0]
 
     return into.insertId;
