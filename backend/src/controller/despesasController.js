@@ -18,7 +18,7 @@ endpoints.get('/despesas/', async (req, resp) =>{
 
 
 
-endpoints.post('/despesas/', async (req, resp) => {
+endpoints.post('/inserir/despesas/', async (req, resp) => {
     try {
         let despesa = req.body;
 

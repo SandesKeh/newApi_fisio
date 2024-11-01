@@ -13,7 +13,7 @@ insert into tb_login_autonomo( email, senha)
 values (?,?);
 
 
-create table tb_informacoes_pessoais(
+create  table tb_informacoes_pessoais(
 id_informacoes_pessoais int auto_increment primary key,
 nome varchar(200),
 grupo varchar(200),
@@ -23,8 +23,20 @@ genero varchar(200),
 email varchar(200) unique,
 celular varchar(200) unique,
 cpf varchar(11) unique,
-rg varchar(200) unique
+rg varchar(200) unique,
+telefone varchar(200) unique,
+pais varchar(200),
+cep varchar(200),
+cidade varchar(200),
+estado varchar(2),
+endereco varchar(200),
+numero varchar(200),
+bairro varchar(200),
+complemento varchar(200)
 );
+
+insert into tb_informacoes_pessoais(nome, grupo, data_nascimento, idade, genero, email, celular, cpf, rg, telefone, pais, cep, cidade, estado, endereco, numero, bairro, complemento)
+       values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 select * from tb_informacoes_pessoais where id_informacoes_pessoais = 2;
 select * from tb_informacoes_pessoais;
@@ -48,17 +60,7 @@ select * from tb_informacoes_financeiros;
 
 
 
-create table tb_endereco(
-id_endereco int auto_increment primary key,
-pais varchar(200),
-cep varchar(200),
-cidade varchar(200),
-estado varchar(2),
-endereco varchar(200),
-numero varchar(200),
-bairro varchar(200),
-complemento varchar(200)
-);
+
 select * from tb_endereco;
 create table tb_responsavel(
 id_responsavel int auto_increment primary key,
@@ -87,22 +89,24 @@ horario TIME,
 modo VARCHAR(10)
 );
 
-create  table tb_adicionar_receita(
+create   table tb_adicionar_receita(
 id_adicionar_receita int auto_increment primary key,
 proriedade varchar(200),
 categoria_financeira varchar(200),
 descricao varchar(200),
-valor decimal(10,2),
+valor varchar(200),
 data_pagamento varchar(200),
 forma_pagamento varchar(200)
 );
 
-create  table tb_adicionar_despesa(
+select * from tb_adicionar_despesa;
+
+create table tb_adicionar_despesa(
 id_adicionar_despesa int auto_increment primary key,
 propriedade varchar(200),
 categoria_financeira varchar(200),
 descricao varchar(200),
-valor decimal(10,2),
+valor varchar(200),
 data_pagamento varchar(200)
 
 );
@@ -154,9 +158,11 @@ create table tb_inventario(
 id_inventario int auto_increment primary key,
 nome_produto varchar(200),
 categoria varchar(200),
-qts_estoque decimal(10,2),
+qts_estoque varchar(200),
 onde_comprou varchar(200),
-preco_unitario decimal(10,2),
-valor_total decimal(10,2),
+preco_unitario varchar(200),
+valor_total varchar(200),
 data_compra varchar(200)
 );
+
+select*from tb_inventario;

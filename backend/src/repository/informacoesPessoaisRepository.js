@@ -1,11 +1,11 @@
 import con from "./connection.js";
 
 export async function inserirInfPessoais(pessoaisObj){
-    let comando = `insert into tb_informacoes_pessoais(nome, grupo, data_nascimento, idade, genero, email, celular, cpf, rg)
-       values (?,?,?,?,?,?,?,?,?)
+    let comando = `insert into tb_informacoes_pessoais(nome, grupo, data_nascimento, idade, genero, email, celular, cpf, rg, telefone, pais, cep, cidade, estado, endereco, numero, bairro, complemento)
+       values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     `;
 
-    let resposta = await con.query (comando, [pessoaisObj.nome, pessoaisObj.grupo, pessoaisObj.nascimento, pessoaisObj.idade, pessoaisObj.genero, pessoaisObj.email, pessoaisObj.celular, pessoaisObj.cpf, pessoaisObj.rg ])
+    let resposta = await con.query (comando, [pessoaisObj.nome, pessoaisObj.grupo, pessoaisObj.nascimento, pessoaisObj.idade, pessoaisObj.genero, pessoaisObj.email, pessoaisObj.celular, pessoaisObj.cpf, pessoaisObj.rg, pessoaisObj.telefone, pessoaisObj.pais, pessoaisObj.cep, pessoaisObj.cidade, pessoaisObj.estado, pessoaisObj.endereco, pessoaisObj.numero, pessoaisObj.bairro, pessoaisObj.complemento])
 
     let into = resposta[0];
 
@@ -52,10 +52,19 @@ export async function updatePessoas(pessoaisObj, id) {
         email = ?,
         celular = ? ,
         cpf = ?,
-        rg =?
+        rg =?,
+        telefone =?,
+        pais =?,
+        cep =?,
+        cidade =?,
+        estado =?,
+        endereco= ?,
+        numero =?,
+        bairro =?,
+        completo =?
         where id_informacoes_pessoais = ?
     `
-    let registro = await con.query(comando, [pessoaisObj.nome, pessoaisObj.grupo, pessoaisObj.nascimento, pessoaisObj.idade, pessoaisObj.genero, pessoaisObj.email, pessoaisObj.celular, pessoaisObj.cpf, pessoaisObj.rg, id ])
+    let registro = await con.query(comando, [pessoaisObj.nome, pessoaisObj.grupo, pessoaisObj.nascimento, pessoaisObj.idade, pessoaisObj.genero, pessoaisObj.email, pessoaisObj.celular, pessoaisObj.cpf, pessoaisObj.rg, pessoaisObj.telefone, pessoaisObj.pais, pessoaisObj.cep, pessoaisObj.cidade, pessoaisObj.estado, pessoaisObj.endereco, pessoaisObj.numero, pessoaisObj.bairro, pessoaisObj.complemento, id ])
     let fim = registro[0];
     return fim.affectedRows;
 
