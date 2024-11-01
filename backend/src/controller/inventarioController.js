@@ -19,21 +19,23 @@ endpoints.get('/inventario/', async (req, resp) =>{
 
 
 
-endpoints.post('/inventario/', async (req, resp) => {
+endpoints.post('/inventario', async (req, resp) => {
     try {
-        let inventario = req.body;
 
-        let id = await db.inserirInventario(inventario);
+        let { produto, categoria, estoque, local, precoUnitario, valorTotal, data } = req.query;
+
+        let id = await db.inserirInventario(produto, categoria, estoque, local, precoUnitario, valorTotal, data);
 
         resp.send({
             novoId: id
-        })
+        });
     } catch (err) {
         resp.status(400).send({
             erro: err.message
-        })
+        });
     }
-})
+});
+
 
 
 endpoints.put('/inventario/:id', async (req, resp) => {
