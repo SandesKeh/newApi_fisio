@@ -19,10 +19,10 @@ endpoints.get('/inventario/', async (req, resp) =>{
 
 
 
-endpoints.post('/inventario', async (req, resp) => {
+endpoints.post('/inserir/inventario/:produto/:categoria/:estoque/:local/:precoUnitario/:valorTotal/:data', async (req, resp) => {
     try {
 
-        let { produto, categoria, estoque, local, precoUnitario, valorTotal, data } = req.query;
+        let { produto, categoria, estoque, local, precoUnitario, valorTotal, data } = req.params;
 
         let id = await db.inserirInventario(produto, categoria, estoque, local, precoUnitario, valorTotal, data);
 
@@ -38,12 +38,12 @@ endpoints.post('/inventario', async (req, resp) => {
 
 
 
-endpoints.put('/inventario/:id', async (req, resp) => {
+endpoints.put('/atualizar/inventario/:produto/:categoria/:estoque/:local/:precoUnitario/:valorTotal/:data/:id', async (req, resp) => {
     try{
-        let id = req.params.id;
-        let inventario = req.body;
+        let { produto, categoria, estoque, local, precoUnitario, valorTotal, data, id } = req.params;
+        
 
-        let linhasAfetadas = await db.alterarInventario(id, inventario);
+        let linhasAfetadas = await db.alterarInventario(produto, categoria, estoque, local, precoUnitario, valorTotal, data, id );
         if (linhasAfetadas >= 1) {
             resp.send();
         } else {

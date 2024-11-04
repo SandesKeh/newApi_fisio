@@ -31,9 +31,9 @@ export async function consultarInventario() {
 }
 
 
-export async function alterarInventario(id, inventario) {
+export async function alterarInventario(produto, categoria, estoque, local, precoUnitario, valorTotal, data, id) {
     const comando = `
-        update  db_autonomo_api.tb_inventario 
+        update  tb_inventario 
            set  nome_produto = ?,
                 categoria = ?,
                 qts_estoque = ?,
@@ -45,9 +45,9 @@ export async function alterarInventario(id, inventario) {
     `;
 
     
-    let respostas = await con.query(comando, [inventario.produto, inventario.categoria, inventario.estoque, inventario.local, inventario.precoUnitario, inventario.valorTotal, inventario.data, id])
+    let respostas = await con.query(comando, [produto, categoria, estoque, local, precoUnitario, valorTotal, data, id])
     let info = respostas[0];
-
+    
     return info.affectedRows;
 }
 
