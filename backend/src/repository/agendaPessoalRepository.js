@@ -1,71 +1,69 @@
 import con from "./connection.js";
 
-
 export async function inserirPessoalAgenda(pessoal) {
-    let comando = `
+    const comando = `
         INSERT INTO tb_pessoal_cadastro_agenda (nome, data, repetir, horario, modo)
         VALUES (?, ?, ?, ?, ?)
     `;
-
-    let resultado = await con.query(comando, [
-        pessoal.nome,
-        pessoal.data,
-        pessoal.repetir,
-        pessoal.horario,
-        pessoal.modo
+    
+    const [resultado] = await con.query(comando, [
+        pessoal.name,
+        pessoal.date,
+        pessoal.repeat,
+        pessoal.time,
+        pessoal.mode,
     ]);
-    let fim = resultado[0]
-    return fim.insertId; 
+    
+    return resultado.insertId; 
 }
 
 export async function consultarTodosPessoal() {
-    let comando = `
-        SELECT * FROM tb_pessoal_cadastro_agenda;
-    `;
-
-    let registros = await con.query(comando);
-    return registros[0];
+    try {
+        const comando = `
+            SELECT * FROM tb_pessoal_cadastro_agenda;
+        `;
+        const [registros] = await con.query(comando);
+        return registros;
+    } catch (error) {
+        console.error("Erro ao consultar agenda pessoal:", error);
+        throw new Error("Erro ao buscar agenda pessoal.");
+    }
 }
-
 
 export async function consultarPessoalPorId(id) {
-    let comando = `
-        SELECT * FROM tb_pessoal_cadastro_agenda WHERE id_pessoal = ?;
+    const comando = `
+        SELECT * FROM tb_pessoal_cadastro_agenda WHERE id = ?;
     `;
-
-    let registro = await con.query(comando, [id]);
-    return registro[0]; 
+    
+    const [registro] = await con.query(comando, [id]);
+    return registro; 
 }
 
-export async function atualizarPessoal(id, pessoal) {
-    let comando = `
+export async function atualizarPessoal(id, pessoal, status) {
+    const comando = `
         UPDATE tb_pessoal_cadastro_agenda 
-        SET nome = ?, data = ?, repetir = ?, horario = ?, modo = ?
-        WHERE id_pessoal = ?;
+        SET nome = ?, data = ?, repetir = ?, horario = ?, modo = ?, status= ?
+        WHERE id= ?;
     `;
-
-    let resultado = await con.query(comando, [
-        pessoal.nome,
-        pessoal.data,
-        pessoal.repetir,
-        pessoal.horario,
-        pessoal.modo,
+    
+    const [resultado] = await con.query(comando, [
+        pessoal.name,
+        pessoal.date,
+        pessoal.repeat,
+        pessoal.time,
+        pessoal.mode,
+        pessoal.status,
         id
     ]);
-    let fim = resultado[0]
-    return fim.affectedRows; 
+    
+    return resultado.affectedRows; 
 }
-
 
 export async function deletarPessoal(id) {
-    let comando = `
-        DELETE FROM tb_pessoal_cadastro_agenda WHERE id_pessoal = ?;
+    const comando = `
+        DELETE FROM tb_pessoal_cadastro_agenda WHERE id = ?;
     `;
-
-    let resultado = await con.query(comando, [id]);
-    let fim = resultado[0]
-    return fim.affectedRows; 
+    
+    const [resultado] = await con.query(comando, [id]);
+    return resultado.affectedRows; 
 }
-
-
-

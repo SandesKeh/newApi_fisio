@@ -1,61 +1,67 @@
 import con from "./connection.js";
 
 export async function inserirClienteAgenda(cliente) {
-    let comando = `
-        INSERT INTO tb_cliente_cadastro_agenda (nome, data, horario, repetir, modo, servico)
+    const comando = `
+        INSERT INTO tb_cliente_cadastro_agenda(nome, data, horario, repetir, modo, servico)
         VALUES (?, ?, ?, ?, ?, ?)
     `;
 
-    let registro = await con.query(comando, [ cliente.nome, cliente.data, cliente.horario, cliente.repetir, cliente.modo, cliente.servico]);
-    let fim = registro[0]
-    return fim.insertId; 
+    const [registro] = await con.query(comando, [
+        cliente.name,
+        cliente.date,
+        cliente.time,
+        cliente.repeat,
+        cliente.mode,
+        cliente.service,
+    ]);
+    
+    return registro.insertId; 
 }
 
-
 export async function consultarTodosClientes() {
-    let comando = `
+    const comando = `
         SELECT * FROM tb_cliente_cadastro_agenda;
     `;
 
-    let registros = await con.query(comando);
-    return registros[0];
+    const [registros] = await con.query(comando);
+    return registros;
 }
-
 
 export async function consultarClientePorId(id) {
-    let comando = `
-        SELECT * FROM tb_cliente_cadastro_agenda WHERE id_cliente = ?;
+    const comando = `
+        SELECT * FROM tb_cliente_cadastro_agenda WHERE id = ?;
     `;
 
-    let registro = await con.query(comando, [id]);
-    return registro[0]; 
+    const [registro] = await con.query(comando, [id]);
+    return registro; 
 }
 
-export async function atualizarCliente(id, cliente) {
-    let comando = `
+export async function atualizarCliente(id, cliente,status) {
+    const comando = `
         UPDATE tb_cliente_cadastro_agenda 
-        SET nome = ?,
-        data = ?,
-        horario = ?, 
-        repetir = ?,
-        modo = ?, 
-        servico = ?
-        WHERE id_cliente = ?;
+        SET nome = ?, data = ?, horario = ?, repetir = ?, modo = ?, servico = ?, status =?
+        WHERE id= ?;
     `;
 
-    let resultado = await con.query(comando, [ cliente.nome,  cliente.data, cliente.horario, cliente.repetir, cliente.modo, cliente.servico, id]);
-    let fim = resultado[0]
-    return fim.affectedRows; 
+    const [resultado] = await con.query(comando, [
+        cliente.name,
+        cliente.date,
+        cliente.time,
+        cliente.repeat,
+        cliente.mode,
+        cliente.service,
+        cliente.status,
+        id
+    ]);
+    
+    return resultado.affectedRows; 
 }
-
 
 export async function deletarCliente(id) {
-    let comando = `
-        DELETE FROM tb_cliente_cadastro_agenda 
-        WHERE id_cliente = ?;
+    const comando = `
+        DELETE FROM tb_cliente_cadastro_agenda WHERE id = ?;
     `;
 
-    let resultado = await con.query(comando, [id]);
-    let fim = resultado[0]
-    return fim.affectedRows; 
+    const [resultado] = await con.query(comando, [id]);
+    return resultado.affectedRows; 
 }
