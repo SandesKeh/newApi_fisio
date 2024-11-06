@@ -2,13 +2,13 @@ import con from "./connection.js";
 
 
 
-export async function inserirProfissional(profissional) {
+export async function inserirProfissional(nome, email, acesso) {
     const comando = `
-        insert into db_autonomo_api.tb_adicionar_profissional (nome, email, acesso)
+        insert into tb_adicionar_profissional (nome, email, acesso)
                            values (?,?,?);
     `;
 
-    let resposta = await con.query(comando, [profissional.nome, profissional.email, profissional.temAcesso]);
+    let resposta = await con.query(comando, [nome, email, acesso]);
 
     let info = resposta[0];
 
@@ -18,11 +18,7 @@ export async function inserirProfissional(profissional) {
 
 export async function consultarProfissional() {
     const comando = `
-        select  nome    nome,
-                email   email,
-                acesso  temAcesso
-
-        from tb_adicionar_profissional;
+        select * from tb_adicionar_profissional;
     `;
 
 

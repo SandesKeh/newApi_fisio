@@ -35,7 +35,7 @@ endpoint.get('/consultar/infoPessoas', async (req, resp) => {
     }
 })
 
-endpoint.get('/consultar/letra/infoPessoal/nome', async(req,resp) => {
+endpoint.get('/consultar/letra/infoPessoal/:nome', async(req,resp) => {
     try {
 
         let nome = req.params.nome;

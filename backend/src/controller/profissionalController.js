@@ -19,11 +19,11 @@ endpoints.get('/usuario/profissional', async (req, resp) =>{
 
 
 
-endpoints.post('/usuario/profissional', async (req, resp) => {
+endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', async (req, resp) => {
     try {
-        let profissional = req.body;
+        let {nome, email, acesso} = req.params;
 
-        let id = await db.inserirProfissional(profissional);
+        let id = await db.inserirProfissional(nome, email, acesso);
 
         resp.send({
             novoId: id
