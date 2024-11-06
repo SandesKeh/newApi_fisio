@@ -35,6 +35,25 @@ endpoint.get('/consultar/infoPessoas', async (req, resp) => {
     }
 })
 
+endpoint.get('/consultar/letra/infoPessoal/nome', async(req,resp) => {
+    try {
+
+        let nome = req.params.nome;
+
+        let registro = await bd.concultsrPorLetra(nome);
+        if (!registro) {
+            return resp.status(404).send({
+                resposta: "Usuário não encontrado..."
+            });
+        }
+
+    } catch (err) {
+        return resp.status(400).send({
+            erro: err.message
+        });
+    }
+})
+
 
 
 endpoint.delete('/deletar/infoPessoas/:id', async (req, resp) => {
