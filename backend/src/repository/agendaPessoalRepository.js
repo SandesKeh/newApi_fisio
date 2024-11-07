@@ -2,14 +2,14 @@ import con from "./connection.js";
 
 export async function inserirPessoalAgenda(pessoal) {
     const comando = `
-        INSERT INTO tb_pessoal_cadastro_agenda (nome, data, repetir, horario, modo)
+        INSERT INTO tb_pessoal_cadastro_agenda (name, date, retun, time, mode)
         VALUES (?, ?, ?, ?, ?)
     `;
     
     const [resultado] = await con.query(comando, [
         pessoal.name,
         pessoal.date,
-        pessoal.repeat,
+        pessoal.retun,
         pessoal.time,
         pessoal.mode,
     ]);
@@ -20,7 +20,7 @@ export async function inserirPessoalAgenda(pessoal) {
 export async function consultarTodosPessoal() {
     try {
         const comando = `
-            SELECT * FROM tb_pessoal_cadastro_agenda;
+            SELECT * FROM db_autonomo_api.tb_pessoal_cadastro_agenda;
         `;
         const [registros] = await con.query(comando);
         return registros;
