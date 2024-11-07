@@ -49,22 +49,10 @@ endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', async (req, 
 })
 
 
-endpoints.put('/alterar/usuario/profissional/:id/:nome/:email/:acesso', async (req, resp) => {
-    try{
-        let {id, nome, email,acesso} = req.params.id;
-        
-
-        let linhasAfetadas = await db.alterarInventario(id, nome, email, acesso);
-        if (linhasAfetadas >= 1) {
-            resp.send();
-        } else {
-            resp.status(404).send({erro: 'Nenhum inventario encontrado'})
-        }
-    } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        })
-    }
+endpoints.put('/update/profissional/:nome/:email/:acesso/:id', async (req, resp) =>{
+    let {nome, email, acesso, id} = req.params;
+    let comando = await db.alterarProfissional(nome, email, acesso, id);
+    resp.send({mensagem: "update com sucesso"})
 })
 
 

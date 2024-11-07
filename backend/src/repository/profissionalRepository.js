@@ -38,19 +38,19 @@ export async function consultarProfissionalPorId(id ) {
     let respostas = await con.query(comando, [id]);
     let registros = respostas[0];
     
-    return registros;
+    return registros[0];
 
 }
 
 
 
-export async function alterarProfissional(id, nome, email, acesso) {
+export async function alterarProfissional( nome, email, acesso, id) {
     const comando = `
-        update  db_autonomo_api.tb_adicionar_profissional 
+        update tb_adicionar_profissional 
            set  nome = ?,
                 email = ?,
-                acesso = ?,
-         where  id_adicionar_profissional = ?;
+                acesso = ?
+         where  id_adicionar_profissional = ?
     `;
 
     
@@ -63,7 +63,7 @@ export async function alterarProfissional(id, nome, email, acesso) {
 
 export async function removerInventario(id) {
     const comando = `
-        delete from db_autonomo_api.tb_adicionar_profissional
+        delete from tb_adicionar_profissional
          where id_adicionar_profissional = ?;
     `;
 
