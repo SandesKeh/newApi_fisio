@@ -29,8 +29,22 @@ export async function consultarProfissional() {
 
 }
 
+export async function consultarProfissionalPorId(id ) {
+    const comando = `
+        select * from tb_adicionar_profissional where id_adicionar_profissional= ?
+    `;
 
-export async function alterarProfissional(id, profissional) {
+
+    let respostas = await con.query(comando, [id]);
+    let registros = respostas[0];
+    
+    return registros;
+
+}
+
+
+
+export async function alterarProfissional(id, nome, email, acesso) {
     const comando = `
         update  db_autonomo_api.tb_adicionar_profissional 
            set  nome = ?,
@@ -40,7 +54,7 @@ export async function alterarProfissional(id, profissional) {
     `;
 
     
-    let respostas = await con.query(comando, [profissional.nome, profissional.email, profissional.temAcesso, id]);
+    let respostas = await con.query(comando, [nome, email, acesso, id]);
     let info = respostas[0];
 
     return info.affectedRows;

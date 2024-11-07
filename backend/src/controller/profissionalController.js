@@ -17,6 +17,19 @@ endpoints.get('/usuario/profissional', async (req, resp) =>{
     }
 })
 
+endpoints.get('/consultar/usuario/profissional/:id', async (req, resp) =>{
+    try {
+        let id = req.params.id;
+        let registros = await db.consultarProfissionalPorId(id);
+        resp.send(registros);
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
 
 
 endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', async (req, resp) => {
@@ -36,12 +49,12 @@ endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', async (req, 
 })
 
 
-endpoints.put('/usuario/profissional:id', async (req, resp) => {
+endpoints.put('/alterar/usuario/profissional/:id/:nome/:email/:acesso', async (req, resp) => {
     try{
-        let id = req.params.id;
-        let profissional = req.body;
+        let {id, nome, email,acesso} = req.params.id;
+        
 
-        let linhasAfetadas = await db.alterarInventario(id, profissional);
+        let linhasAfetadas = await db.alterarInventario(id, nome, email, acesso);
         if (linhasAfetadas >= 1) {
             resp.send();
         } else {

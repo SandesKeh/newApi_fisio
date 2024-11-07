@@ -101,12 +101,12 @@ forma_pagamento varchar(200)
 
 select * from tb_adicionar_despesa;
 
-create table tb_adicionar_despesa(
+create  table tb_adicionar_despesa(
 id_adicionar_despesa int auto_increment primary key,
 propriedade varchar(200),
 categoria_financeira varchar(200),
 descricao varchar(200),
-valor varchar(200),
+valor text,
 data_pagamento varchar(200)
 
 );
