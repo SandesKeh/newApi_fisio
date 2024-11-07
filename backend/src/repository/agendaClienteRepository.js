@@ -2,7 +2,7 @@ import con from "./connection.js";
 
 export async function inserirClienteAgenda(cliente) {
     const comando = `
-        INSERT INTO tb_cliente_cadastro_agenda(nome, data, horario, repetir, modo, servico)
+        INSERT INTO tb_cliente_cadastro_agenda(name, date, time, retun, mode, service)
         VALUES (?, ?, ?, ?, ?, ?)
     `;
 
@@ -10,7 +10,7 @@ export async function inserirClienteAgenda(cliente) {
         cliente.name,
         cliente.date,
         cliente.time,
-        cliente.repeat,
+        cliente.retun,
         cliente.mode,
         cliente.service,
     ]);
@@ -20,7 +20,7 @@ export async function inserirClienteAgenda(cliente) {
 
 export async function consultarTodosClientes() {
     const comando = `
-        SELECT * FROM tb_cliente_cadastro_agenda;
+SELECT * FROM db_autonomo_api.tb_cliente_cadastro_agenda;
     `;
 
     const [registros] = await con.query(comando);
@@ -47,7 +47,7 @@ export async function atualizarCliente(id, cliente,status) {
         cliente.name,
         cliente.date,
         cliente.time,
-        cliente.repeat,
+        cliente.retun,
         cliente.mode,
         cliente.service,
         cliente.status,
