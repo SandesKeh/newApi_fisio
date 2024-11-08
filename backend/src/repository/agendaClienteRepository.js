@@ -13,6 +13,7 @@ export async function inserirClienteAgenda(cliente) {
         cliente.retun,
         cliente.mode,
         cliente.service,
+        cliente.status,
     ]);
     
     return registro.insertId; 
@@ -38,18 +39,12 @@ export async function consultarClientePorId(id) {
 
 export async function atualizarCliente(id, cliente,status) {
     const comando = `
-        UPDATE tb_cliente_cadastro_agenda 
-        SET nome = ?, data = ?, horario = ?, repetir = ?, modo = ?, servico = ?, status =?
+        UPDATE tb_cliente_cadastro_agenda
+        SET status =?
         WHERE id= ?;
     `;
 
     const [resultado] = await con.query(comando, [
-        cliente.name,
-        cliente.date,
-        cliente.time,
-        cliente.retun,
-        cliente.mode,
-        cliente.service,
         cliente.status,
         id
     ]);

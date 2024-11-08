@@ -42,16 +42,11 @@ export async function consultarPessoalPorId(id) {
 export async function atualizarPessoal(id, pessoal, status) {
     const comando = `
         UPDATE tb_pessoal_cadastro_agenda 
-        SET nome = ?, data = ?, repetir = ?, horario = ?, modo = ?, status= ?
+        SET status= ?
         WHERE id= ?;
     `;
     
     const [resultado] = await con.query(comando, [
-        pessoal.name,
-        pessoal.date,
-        pessoal.repeat,
-        pessoal.time,
-        pessoal.mode,
         pessoal.status,
         id
     ]);
