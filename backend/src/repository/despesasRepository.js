@@ -30,20 +30,32 @@ export async function consultarDespesas() {
     return registros;
 }
 
-
-export async function alterarDespesas(id) {
+export async function consultarDespesaPorId(id ) {
     const comando = `
-        update from db_autonomo_api.tb_adicionar_despesa
+        select * from tb_adicionar_despesa where id_adicionar_despesal= ?
+    `;
+
+
+    let respostas = await con.query(comando, [id]);
+    let registros = respostas[0];
+    
+    return registros[0];
+
+}
+
+export async function alterarDespesas(propriedade, categoriaFinanceira, descricao, valor, dataPagamento, id) {
+    const comando = `
+        update tb_adicionar_despesa
            set  propriedade = ?, 
                 categoria_financeira = ?,
                 descricao = ?,
                 valor = ?,
                 data_pagamento = ?
-         where  id_adicionar_despesa = ?;
+         where  id_adicionar_despesa = ?
     `;
 
 
-    let respostas = await con.query(comando, [despesa.propriedade, despesa.categoriaFinanceira, despesa.descricao, despesa.valor,  despesa.dataPagamento,  id]);
+    let respostas = await con.query(comando, [propriedade, categoriaFinanceira, descricao, valor,  dataPagamento,  id]);
     let info = respostas[0];
 
 

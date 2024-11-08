@@ -34,13 +34,31 @@ endpoints.post('/inserir/despesas/', async (req, resp) => {
     }
 })
 
+endpoints.get('/consultar/despesas/:id', async (req, resp) =>{
+    try {
+        let id = req.params.id;
+        let registros = await db.consultarDespesaPorId(id);
+        resp.send(registros);
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
+endpoints.put('/update/despesa/:propriedade/:categoriaFinanceira/:descricao/:valor/:dataPagamento/:id', async (req, resp) =>{
+    let {propriedade, categoriaFinanceira , descricao, valor, dataPagamento, id} = req.params;
+    let comando = await db.alterarProfissional(propriedade, categoriaFinanceira, descricao, valor, dataPagamento, id);
+    resp.send({mensagem: "update com sucesso"})
+})
 
 endpoints.put('/despesas/:id', async (req, resp) => {
     try{
         let id = req.params.id;
         let despesa = req.body;
 
-        let linhasAfetadas = await db.alterarDespesas(id, despesa);
+        let linhasAfetadas = await db.alterarDespesa(id, despesa);
         if (linhasAfetadas >= 1) {
             resp.send();
         } else {

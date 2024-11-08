@@ -34,19 +34,34 @@ export async function consultarDocumentacao() {
     return registros;
 }
 
-
-export async function alterarDocumentacao(id) {
+export async function consultarDocumentoPorId(id ) {
     const comando = `
-        update from db_autonomo_api.tb_adicionar_documento
+        select * from tb_adicionar_documento where id_adicionar_documento= ?
+ 
+    `;
+
+
+    let respostas = await con.query(comando, [id]);
+    let registros = respostas[0];
+    
+    return registros[0];
+
+}
+
+
+
+export async function alterarDocumentacao(tipo, titulo, conteudo, dataCadastro,id) {
+    const comando = `
+        update tb_adicionar_documento
            set  tipo = ?,
                 titulo = ?,
                 conteudo = ?,
                 dt_cadastro = ?
-         where  id_adicionar_documento = ?;
+         where  id_adicionar_documento = ?
     `;
 
 
-    let respostas = await con.query(comando, [documentacao.tipo, documentacao.titulo, documentacao.conteudo, documentacao.dataCadastro, id]);
+    let respostas = await con.query(comando, [tipo, titulo, conteudo, dataCadastro, id]);
     let info = respostas[0];
 
 

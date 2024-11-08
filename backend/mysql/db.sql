@@ -42,10 +42,10 @@ select * from tb_informacoes_pessoais where id_informacoes_pessoais = 2;
 select * from tb_informacoes_pessoais;
 
 select * from tb_pacotes;
-create table tb_pacotes(
+create  table tb_pacotes(
 id_pacotes int auto_increment primary key,
 nome varchar(200),
-valor varchar(200)
+valor text
 );
 insert into tb_pacotes (nome,valor)
         values ("teste","testre");
@@ -119,7 +119,7 @@ email varchar(200),
 acesso varchar(200)
 );
 
-create table tb_adicionar_documento(
+create  table tb_adicionar_documento(
 id_adicionar_documento int auto_increment primary key,
 tipo varchar(200),
 titulo varchar(200),
@@ -160,8 +160,8 @@ nome_produto varchar(200),
 categoria varchar(200),
 qts_estoque varchar(200),
 onde_comprou varchar(200),
-preco_unitario varchar(200),
-valor_total varchar(200),
+preco_unitario text,
+valor_total text(200),
 data_compra varchar(200)
 );
 

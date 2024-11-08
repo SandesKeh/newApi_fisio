@@ -34,13 +34,31 @@ endpoint.get('/consultar/pacotes', async (req,resp) => {
     }
         
 })
+endpoint.get('/consultar/pacote/:id', async (req, resp) =>{
+    try {
+        let id = req.params.id;
+        let registros = await db.consultarPacotesPorId(id);
+        resp.send(registros);
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
+endpoint.put('/update/pacotes/:nome/:valor/:id', async (req, resp) =>{
+    let {nome, valor, id} = req.params;
+    let comando = await db.alterarPacotes(nome, valor, id);
+    resp.send({mensagem: "update com sucesso"})
+})
 
 endpoint.put('/alterar/pacotes/:id', async (req, resp) => {
     try {
         let pacoteOjs = req.body;
         let i = req.params;
 
-        let respost = await db.alterarPacotes(pacoteOjs, i);
+        //let respost = await db.alterarPacotes(pacoteOjs, i);
 
         if (respost = undefined ) {
             resp.send({

@@ -22,14 +22,27 @@ export async function consultarPacotes(){
     return into
 }
 
-export async function alterarPacotes(pacoteOjs, id){
+export async function consultarPacotesPorId(id ) {
+    const comando = `
+        select * from tb_pacotes where id_pacotes= ?
+    `;
+
+
+    let respostas = await con.query(comando, [id]);
+    let registros = respostas[0];
+    
+    return registros[0];
+
+}
+
+export async function alterarPacotes(nome, valor, id){
     let comando = ` update tb_pacotes 
                     set nome = ?,
                     valor = ?
                     where id_pacotes = ?
     `;
 
-    let resposta= await con.query (comando, [pacoteOjs.nome, pacoteOjs.valor, id] );
+    let resposta= await con.query (comando, [nome, valor, id] );
 
     let into = resposta[0];
 
