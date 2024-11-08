@@ -19,11 +19,12 @@ export async function inserirDocumentacao(documentacao) {
 
 export async function consultarDocumentacao() {
     const comando = `
-        select  tipo        tipo,
+        select  id_adicionar_documento   id,
+                tipo        tipo,
                 titulo      titulo,
                 conteudo    conteudo,
                 dt_cadastro dataCadastro
-        from    db_autonomo_api.tb_adicionar_documento;
+        from    tb_adicionar_documento;
     `;
 
 

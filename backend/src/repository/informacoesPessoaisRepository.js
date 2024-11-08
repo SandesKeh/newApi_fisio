@@ -34,9 +34,9 @@ export async function  consultaPorId(id) {
 
 export async function  concultsrPorLetra(nome) {
     let comando = `
-        select * from tb_informacoes_pessoais where nome like '?%';
+        select * from tb_informacoes_pessoais where nome like ?;
     `
-    let registro = await con.query(comando, [nome]);
+    let registro = await con.query(comando, ["%",nome,"%"]);
     let re = registro[0];
     return re;
 }

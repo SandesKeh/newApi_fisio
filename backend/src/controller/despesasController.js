@@ -49,8 +49,8 @@ endpoints.get('/consultar/despesas/:id', async (req, resp) =>{
 
 endpoints.put('/update/despesa/:propriedade/:categoriaFinanceira/:descricao/:valor/:dataPagamento/:id', async (req, resp) =>{
     let {propriedade, categoriaFinanceira , descricao, valor, dataPagamento, id} = req.params;
-    let comando = await db.alterarProfissional(propriedade, categoriaFinanceira, descricao, valor, dataPagamento, id);
-    resp.send({mensagem: "update com sucesso"})
+    let comando = await db.alterarDespesas(propriedade, categoriaFinanceira, descricao, valor, dataPagamento, id);
+    resp.send({mensagem: "update com sucesso"});
 })
 
 endpoints.put('/despesas/:id', async (req, resp) => {

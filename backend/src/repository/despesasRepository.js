@@ -32,7 +32,7 @@ export async function consultarDespesas() {
 
 export async function consultarDespesaPorId(id ) {
     const comando = `
-        select * from tb_adicionar_despesa where id_adicionar_despesal= ?
+        select * from tb_adicionar_despesa where id_adicionar_despesa= ?
     `;
 
 
