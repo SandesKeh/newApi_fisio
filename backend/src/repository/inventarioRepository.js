@@ -54,7 +54,7 @@ export async function alterarInventario(produto, categoria, estoque, local, prec
 
 export async function removerInventario(id) {
     const comando = `
-        delete from db_autonomo_api.tb_inventario
+        delete from tb_inventario
          where id_inventario = ?;
     `;
 

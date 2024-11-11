@@ -57,7 +57,7 @@ endpoints.put('/atualizar/inventario/:produto/:categoria/:estoque/:local/:precoU
 })
 
 
-endpoints.delete('/inventario/:id', async (req, resp) => {
+endpoints.delete('/deletar/inventario/:id', async (req, resp) => {
     try {
         let id = req.params.id;
 
