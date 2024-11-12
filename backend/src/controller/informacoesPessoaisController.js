@@ -54,6 +54,17 @@ endpoint.get('/consultar/letra/infoPessoal/:nome', async(req,resp) => {
     }
 })
 
+endpoint.get('/consultar/porID/:id', async (req, resp) =>{
+    try {
+        let id = req.params.id
+        let registro = await  bd.consultaPorId(id);
+        resp.send(registro);
+    } 
+    catch (err) {
+        resp.status(400).send({err: message})
+    }
+})
+
 
 
 endpoint.delete('/deletar/infoPessoas/:id', async (req, resp) => {

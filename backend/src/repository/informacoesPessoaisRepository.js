@@ -24,12 +24,24 @@ export async function consultarPessoais() {
 
 export async function  consultaPorId(id) {
     let comando = `
-        select * from tb_informacoes_pessoais where id_informacoes_pessoais = ?
+    select nome,
+    email,
+    celular,
+    cpf,
+    rg,
+    pais,
+    cep,
+    cidade, estado,
+    endereco,
+    numero,
+    bairro,
+    complemento
+    from tb_informacoes_pessoais where id_informacoes_pessoais = ?;
     `;
 
     let registro = await con.query(comando, [id]);
     let fim = registro[0];
-    return fim 
+    return fim[0]; 
 }
 
 export async function  concultsrPorLetra(nome) {
@@ -50,19 +62,14 @@ export async function deletaPessoas(id) {
     return fim.affectedRows;
 }
 
-export async function updatePessoas(pessoaisObj, id) {
+export async function updatePessoas(nome, email, celular, cpf, rg, pais, cep, cidade, estado, endereco, numero,  id) {
     let comando = `
         update tb_informacoes_pessoais
         set  nome = ?,
-        grupo = ? ,
-        data_nascimento = ?,
-        idade = ?,
-        genero =?,
         email = ?,
         celular = ? ,
         cpf = ?,
         rg =?,
-        telefone =?,
         pais =?,
         cep =?,
         cidade =?,
