@@ -1,10 +1,13 @@
 import * as db from '../repository/receitasRepository.js'
 
 import {Router} from 'express';
+import { autenticar } from '../utils/jwt.js';
+
+
 const endpoints = Router();
 
 
-endpoints.get('/receitas/', async (req, resp) =>{
+endpoints.get('/receitas/', autenticar, async (req, resp) =>{
     try {
         let registros = await db.consultarReceitas();
         resp.send(registros);
@@ -18,7 +21,7 @@ endpoints.get('/receitas/', async (req, resp) =>{
 
 
 
-endpoints.post('/receitas/', async (req, resp) => {
+endpoints.post('/receitas/', autenticar, async (req, resp) => {
     try {
         let receita = req.body;
 
@@ -35,7 +38,7 @@ endpoints.post('/receitas/', async (req, resp) => {
 })
 
 
-endpoints.put('/receitas/:id', async (req, resp) => {
+endpoints.put('/receitas/:id', autenticar, async (req, resp) => {
     try{
         let id = req.params.id;
         let receita = req.body;
@@ -54,7 +57,7 @@ endpoints.put('/receitas/:id', async (req, resp) => {
 })
 
 
-endpoints.delete('/receitas/:id', async (req, resp) => {
+endpoints.delete('/receitas/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 

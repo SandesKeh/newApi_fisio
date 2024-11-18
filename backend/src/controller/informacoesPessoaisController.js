@@ -1,9 +1,10 @@
 import * as bd from  '../repository/informacoesPessoaisRepository.js';
 import { Router } from 'express';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoint = Router();
 
-endpoint.post('/inserir/infoPessoal', async (req,resp) => {
+endpoint.post('/inserir/infoPessoal', autenticar, async (req,resp) => {
     try{
         let pessoaisObj = req.body;
 
@@ -18,11 +19,11 @@ endpoint.post('/inserir/infoPessoal', async (req,resp) => {
             erro: err.message
         })
     }
-     
+    
 })
 
 
-endpoint.get('/consultar/infoPessoas', async (req, resp) => {
+endpoint.get('/consultar/infoPessoas', autenticar, async (req, resp) => {
     try {
         let registro = await bd.consultarPessoais();
         resp.send(registro);
@@ -35,7 +36,7 @@ endpoint.get('/consultar/infoPessoas', async (req, resp) => {
     }
 })
 
-endpoint.get('/consultar/letra/infoPessoal/:nome', async(req,resp) => {
+endpoint.get('/consultar/letra/infoPessoal/:nome', autenticar, async(req,resp) => {
     try {
 
         let nome = req.params.nome;
@@ -54,7 +55,7 @@ endpoint.get('/consultar/letra/infoPessoal/:nome', async(req,resp) => {
     }
 })
 
-endpoint.get('/consultar/porID/:id', async (req, resp) =>{
+endpoint.get('/consultar/porID/:id', autenticar, async (req, resp) =>{
     try {
         let id = req.params.id
         let registro = await  bd.consultaPorId(id);
@@ -67,7 +68,7 @@ endpoint.get('/consultar/porID/:id', async (req, resp) =>{
 
 
 
-endpoint.delete('/deletar/infoPessoas/:id', async (req, resp) => {
+endpoint.delete('/deletar/infoPessoas/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 
@@ -98,7 +99,7 @@ endpoint.delete('/deletar/infoPessoas/:id', async (req, resp) => {
 
 
 
-endpoint.put('/update/infoPessoas/:id', async (req, resp) => {
+endpoint.put('/update/infoPessoas/:id', autenticar, async (req, resp) => {
     try{
         let pessoaisObj = req.body;
         let id = req.params.id;
@@ -112,7 +113,7 @@ endpoint.put('/update/infoPessoas/:id', async (req, resp) => {
             else {
                 resp.status(404).send({erro: 'Nenhuma pessoal encontrada'})
             }
-       
+    
     } catch(err) {
         resp.status(400).send({
             erro: err.message

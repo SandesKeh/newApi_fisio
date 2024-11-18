@@ -1,11 +1,14 @@
 import * as db from '../repository/inventarioRepository.js'
 
 import {Router} from 'express';
+import { autenticar } from '../utils/jwt.js';
+
+
 const endpoints = Router();
 
 
 
-endpoints.get('/inventario/', async (req, resp) =>{
+endpoints.get('/inventario/', autenticar, async (req, resp) =>{
     try {
         let registros = await db.consultarInventario();
         resp.send(registros);
@@ -19,7 +22,7 @@ endpoints.get('/inventario/', async (req, resp) =>{
 
 
 
-endpoints.post('/inserir/inventario/:produto/:categoria/:estoque/:local/:precoUnitario/:valorTotal/:data', async (req, resp) => {
+endpoints.post('/inserir/inventario/:produto/:categoria/:estoque/:local/:precoUnitario/:valorTotal/:data', autenticar, async (req, resp) => {
     try {
 
         let { produto, categoria, estoque, local, precoUnitario, valorTotal, data } = req.params;
@@ -38,7 +41,7 @@ endpoints.post('/inserir/inventario/:produto/:categoria/:estoque/:local/:precoUn
 
 
 
-endpoints.put('/atualizar/inventario/:produto/:categoria/:estoque/:local/:precoUnitario/:valorTotal/:data/:id', async (req, resp) => {
+endpoints.put('/atualizar/inventario/:produto/:categoria/:estoque/:local/:precoUnitario/:valorTotal/:data/:id', autenticar, async (req, resp) => {
     try{
         let { produto, categoria, estoque, local, precoUnitario, valorTotal, data, id } = req.params;
         
@@ -57,7 +60,7 @@ endpoints.put('/atualizar/inventario/:produto/:categoria/:estoque/:local/:precoU
 })
 
 
-endpoints.delete('/deletar/inventario/:id', async (req, resp) => {
+endpoints.delete('/deletar/inventario/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 

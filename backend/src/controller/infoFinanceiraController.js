@@ -1,11 +1,12 @@
 import * as db from '../repository/infoFinanceiraRepository.js'
 import { Router } from 'express';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoint= Router();
 
-endpoint.post('/inserir/financeiro', async (req,resp) => {
+endpoint.post('/inserir/financeiro', autenticar, async (req,resp) => {
     try {
-         
+        
         let financeiroObj = req.body;
         let id = await db.inserirFinanceiro(financeiroObj);
 
@@ -20,7 +21,7 @@ endpoint.post('/inserir/financeiro', async (req,resp) => {
         
 })
 
-endpoint.get('/consultar/financeiro', async (req,resp) =>{
+endpoint.get('/consultar/financeiro', autenticar, async (req,resp) =>{
     try {
         let registro = await db.consultarFinanceiro();
         resp.send(registro);
@@ -33,7 +34,7 @@ endpoint.get('/consultar/financeiro', async (req,resp) =>{
     }
 })
 
-endpoint.put('/alterar/financeiro/:id', async (req,resp) => {
+endpoint.put('/alterar/financeiro/:id', autenticar, async (req,resp) => {
     try {
         let financeiroObj= req.body;
         let id = req.params.id;
@@ -57,7 +58,7 @@ endpoint.put('/alterar/financeiro/:id', async (req,resp) => {
     
 })
 
-endpoint.delete('/deletar/financeiro/:id', async (req,resp) => {
+endpoint.delete('/deletar/financeiro/:id', autenticar, async (req,resp) => {
     try {
         let id = req.params.id;
 

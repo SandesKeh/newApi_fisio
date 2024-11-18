@@ -1,9 +1,10 @@
 import * as db  from '../repository/pacotesRepository.js';
 import { Router } from 'express';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoint = Router();
 
-endpoint.post('/insert/pacotes/:nome/:valor', async (req,resp) => {
+endpoint.post('/insert/pacotes/:nome/:valor', autenticar, async (req,resp) => {
     try{
         let {nome, valor} = req.params;
     
@@ -22,7 +23,7 @@ endpoint.post('/insert/pacotes/:nome/:valor', async (req,resp) => {
 })
 
 
-endpoint.get('/consultar/pacotes', async (req,resp) => {
+endpoint.get('/consultar/pacotes', autenticar, async (req,resp) => {
     try {
         let o = await db.consultarPacotes()
 
@@ -34,7 +35,7 @@ endpoint.get('/consultar/pacotes', async (req,resp) => {
     }
         
 })
-endpoint.get('/consultar/pacote/:id', async (req, resp) =>{
+endpoint.get('/consultar/pacote/:id', autenticar, async (req, resp) =>{
     try {
         let id = req.params.id;
         let registros = await db.consultarPacotesPorId(id);
@@ -47,13 +48,13 @@ endpoint.get('/consultar/pacote/:id', async (req, resp) =>{
     }
 })
 
-endpoint.put('/update/pacotes/:nome/:valor/:id', async (req, resp) =>{
+endpoint.put('/update/pacotes/:nome/:valor/:id', autenticar, async (req, resp) =>{
     let {nome, valor, id} = req.params;
     let comando = await db.alterarPacotes(nome, valor, id);
     resp.send({mensagem: "update com sucesso"})
 })
 
-endpoint.put('/alterar/pacotes/:id', async (req, resp) => {
+endpoint.put('/alterar/pacotes/:id', autenticar, async (req, resp) => {
     try {
         let pacoteOjs = req.body;
         let i = req.params;
@@ -78,7 +79,7 @@ endpoint.put('/alterar/pacotes/:id', async (req, resp) => {
 })
 
 
-endpoint.delete('/deletar/pacote/:id', async (req, resp) =>{
+endpoint.delete('/deletar/pacote/:id', autenticar, async (req, resp) =>{
     try {
         let id = req.params.id;
 

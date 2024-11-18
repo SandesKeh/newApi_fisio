@@ -1,11 +1,12 @@
 import * as db from '../repository/profissionalRepository.js'
 
 import {Router} from 'express';
+import { autenticar } from '../utils/jwt.js';
 const endpoints = Router();
 
 
 
-endpoints.get('/usuario/profissional', async (req, resp) =>{
+endpoints.get('/usuario/profissional', autenticar, async (req, resp) =>{
     try {
         let registros = await db.consultarProfissional();
         resp.send(registros);
@@ -17,7 +18,7 @@ endpoints.get('/usuario/profissional', async (req, resp) =>{
     }
 })
 
-endpoints.get('/consultar/usuario/profissional/:id', async (req, resp) =>{
+endpoints.get('/consultar/usuario/profissional/:id', autenticar, async (req, resp) =>{
     try {
         let id = req.params.id;
         let registros = await db.consultarProfissionalPorId(id);
@@ -32,7 +33,7 @@ endpoints.get('/consultar/usuario/profissional/:id', async (req, resp) =>{
 
 
 
-endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', async (req, resp) => {
+endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', autenticar, async (req, resp) => {
     try {
         let {nome, email, acesso} = req.params;
 
@@ -49,14 +50,14 @@ endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', async (req, 
 })
 
 
-endpoints.put('/update/profissional/:nome/:email/:acesso/:id', async (req, resp) =>{
+endpoints.put('/update/profissional/:nome/:email/:acesso/:id', autenticar, async (req, resp) =>{
     let {nome, email, acesso, id} = req.params;
     let comando = await db.alterarProfissional(nome, email, acesso, id);
     resp.send({mensagem: "update com sucesso"})
 })
 
 
-endpoints.delete('/usuario/profissional:id', async (req, resp) => {
+endpoints.delete('/usuario/profissional:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 

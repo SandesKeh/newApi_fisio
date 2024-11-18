@@ -1,9 +1,11 @@
 import * as bd from "../repository/agendaClienteRepository.js";
 import { Router } from "express";
+import { autenticar } from "../utils/jwt.js";
+
 
 const endpoint = Router();
 
-endpoint.post('/inserir/agendaCliente', async (req, resp) => {
+endpoint.post('/inserir/agendaCliente', autenticar, async (req, resp) => {
     try {
         const cliente = req.body;
         const registro = await bd.inserirClienteAgenda(cliente);
@@ -13,7 +15,7 @@ endpoint.post('/inserir/agendaCliente', async (req, resp) => {
     }
 });
 
-endpoint.get('/consulta/agendaCliente', async (req, resp) => {
+endpoint.get('/consulta/agendaCliente', autenticar, async (req, resp) => {
     try {
         const registro = await bd.consultarTodosClientes();
         resp.send(registro);
@@ -22,7 +24,7 @@ endpoint.get('/consulta/agendaCliente', async (req, resp) => {
     }
 });
 
-endpoint.put('/atualizar/agendaCliente/:id', async (req, resp) => { 
+endpoint.put('/atualizar/agendaCliente/:id', autenticar, async (req, resp) => { 
     try {
         const id = req.params.id;
         const cliente = req.body;
@@ -43,7 +45,7 @@ endpoint.put('/atualizar/agendaCliente/:id', async (req, resp) => {
     }
 });
 
-endpoint.delete('/deleta/agendaCliente/:id', async (req, resp) => {
+endpoint.delete('/deleta/agendaCliente/:id', autenticar, async (req, resp) => {
     try {
         const id = req.params.id;
 

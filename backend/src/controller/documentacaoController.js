@@ -1,10 +1,13 @@
 import * as db from '../repository/documentacaoRepository.js'
 
 import {Router} from 'express';
+import { autenticar } from '../utils/jwt.js';
+
+
 const endpoints = Router();
 
 
-endpoints.get('/documentacao/', async (req, resp) =>{
+endpoints.get('/documentacao/', autenticar, async (req, resp) =>{
     try {
         let registros = await db.consultarDocumentacao();
         resp.send(registros);
@@ -16,7 +19,7 @@ endpoints.get('/documentacao/', async (req, resp) =>{
     }
 })
 
-endpoints.get('/consultar/usuario/documento/:id', async (req, resp) =>{
+endpoints.get('/consultar/usuario/documento/:id', autenticar, async (req, resp) =>{
     try {
         let id = req.params.id;
         let registros = await db.consultarDocumentoPorId(id);
@@ -31,7 +34,7 @@ endpoints.get('/consultar/usuario/documento/:id', async (req, resp) =>{
 
 
 
-endpoints.post('/documentacao/', async (req, resp) => {
+endpoints.post('/documentacao/', autenticar, async (req, resp) => {
     try {
         let documentacao = req.body;
 
@@ -47,7 +50,7 @@ endpoints.post('/documentacao/', async (req, resp) => {
     }
 })
 
-endpoints.put('/update/documento/:tipo/:titulo/:conteudo/:dataCadastro/:id', async (req, resp) =>{
+endpoints.put('/update/documento/:tipo/:titulo/:conteudo/:dataCadastro/:id', autenticar, async (req, resp) =>{
     let {tipo, titulo, conteudo, dataCadastro, id} = req.params;
 
     let comando = await db.alterarDocumentacao(tipo, titulo, conteudo, dataCadastro, id);
@@ -56,7 +59,7 @@ endpoints.put('/update/documento/:tipo/:titulo/:conteudo/:dataCadastro/:id', asy
 })
 
 
-endpoints.delete('/documentacao/:id', async (req, resp) => {
+endpoints.delete('/documentacao/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 

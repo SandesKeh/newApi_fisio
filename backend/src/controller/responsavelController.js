@@ -1,9 +1,10 @@
 import * as db from '../repository/responsavelRepository.js';
 import { Router } from 'express';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoint = Router();
 
-endpoint.post('/inserir/responsavel', async (req,resp) => {
+endpoint.post('/inserir/responsavel', autenticar, async (req,resp) => {
     let responsavelObj = req.body;
 
     let registro = await db.inserirResponsavel(responsavelObj)
@@ -13,13 +14,13 @@ endpoint.post('/inserir/responsavel', async (req,resp) => {
     })
 })
 
-endpoint.get ('/consultar/responsavel', async (req,resp) => {
+endpoint.get ('/consultar/responsavel', autenticar, async (req,resp) => {
     let registro = await db.consultarResponsavel()
 
     resp.send(registro)
 })
 
-endpoint.put('/alterar/responsavel/:id', async (req,resp) => {
+endpoint.put('/alterar/responsavel/:id', autenticar, async (req,resp) => {
     let responsavelObj = req.body;
     let id = req.params.id;
 
@@ -30,7 +31,7 @@ endpoint.put('/alterar/responsavel/:id', async (req,resp) => {
     })
 })
 
-endpoint.delete('/deletar/responsavel/:id', async (req,resp) => {
+endpoint.delete('/deletar/responsavel/:id', autenticar, async (req,resp) => {
     let id = req.params.id;
 
     let registro= await db.deletarResponsavel(id)

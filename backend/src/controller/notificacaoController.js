@@ -1,9 +1,12 @@
 import * as bd from "../repository/notificacaoRepository.js"; 
 import { Router } from "express";
+import { autenticar } from "../utils/jwt.js";
+
+
 const endpoint = Router();
 
 
-endpoint.post('/inserir/notificacao', async (req, resp) => {
+endpoint.post('/inserir/notificacao', autenticar, async (req, resp) => {
     try {
         let notificacao = req.body;
         let registro = await bd.inserirNotificacao(notificacao);
@@ -18,7 +21,7 @@ endpoint.post('/inserir/notificacao', async (req, resp) => {
 });
 
 
-endpoint.get('/consulta/notificacoes', async (req, resp) => {
+endpoint.get('/consulta/notificacoes', autenticar, async (req, resp) => {
     try {
         let registros = await bd.consultarTodasNotificacoes();
         resp.send(registros);
@@ -30,7 +33,7 @@ endpoint.get('/consulta/notificacoes', async (req, resp) => {
 });
 
 
-endpoint.get('/consulta/notificacao/:id', async (req, resp) => {
+endpoint.get('/consulta/notificacao/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let notificacao = await bd.consultarNotificacaoPorId(id);
@@ -48,7 +51,7 @@ endpoint.get('/consulta/notificacao/:id', async (req, resp) => {
 });
 
 
-endpoint.put('/atualizar/notificacao/:id', async (req, resp) => {
+endpoint.put('/atualizar/notificacao/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let notificacao = req.body;
@@ -76,7 +79,7 @@ endpoint.put('/atualizar/notificacao/:id', async (req, resp) => {
 });
 
 
-endpoint.delete('/deleta/notificacao/:id', async (req, resp) => {
+endpoint.delete('/deleta/notificacao/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 

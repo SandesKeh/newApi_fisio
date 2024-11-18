@@ -1,10 +1,13 @@
 import * as db from '../repository/despesasRepository.js'
 
 import {Router} from 'express';
+import { autenticar } from '../utils/jwt.js';
+
+
 const endpoints = Router();
 
 
-endpoints.get('/despesas/', async (req, resp) =>{
+endpoints.get('/despesas/',autenticar, async (req, resp) =>{
     try {
         let registros = await db.consultarDespesas();
         resp.send(registros);
@@ -18,7 +21,7 @@ endpoints.get('/despesas/', async (req, resp) =>{
 
 
 
-endpoints.post('/inserir/despesas/', async (req, resp) => {
+endpoints.post('/inserir/despesas/', autenticar, async (req, resp) => {
     try {
         let despesa = req.body;
 
@@ -34,7 +37,7 @@ endpoints.post('/inserir/despesas/', async (req, resp) => {
     }
 })
 
-endpoints.get('/consultar/despesas/:id', async (req, resp) =>{
+endpoints.get('/consultar/despesas/:id', autenticar, async (req, resp) =>{
     try {
         let id = req.params.id;
         let registros = await db.consultarDespesaPorId(id);
@@ -47,18 +50,18 @@ endpoints.get('/consultar/despesas/:id', async (req, resp) =>{
     }
 })
 
-endpoints.put('/update/despesa/:propriedade/:categoriaFinanceira/:descricao/:valor/:dataPagamento/:id', async (req, resp) =>{
+endpoints.put('/update/despesa/:propriedade/:categoriaFinanceira/:descricao/:valor/:dataPagamento/:id', autenticar, async (req, resp) =>{
     let {propriedade, categoriaFinanceira , descricao, valor, dataPagamento, id} = req.params;
     let comando = await db.alterarDespesas(propriedade, categoriaFinanceira, descricao, valor, dataPagamento, id);
     resp.send({mensagem: "update com sucesso"});
 })
 
-endpoints.put('/despesas/:id', async (req, resp) => {
+endpoints.put('/despesas/:id', autenticar, async (req, resp) => {
     try{
         let id = req.params.id;
         let despesa = req.body;
 
-        let linhasAfetadas = await db.alterarDespesa(id, despesa);
+        let linhasAfetadas = await db.alterarDespesas(id, despesa);
         if (linhasAfetadas >= 1) {
             resp.send();
         } else {
@@ -72,7 +75,7 @@ endpoints.put('/despesas/:id', async (req, resp) => {
 })
 
 
-endpoints.delete('/despesas/:id', async (req, resp) => {
+endpoints.delete('/despesas/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 

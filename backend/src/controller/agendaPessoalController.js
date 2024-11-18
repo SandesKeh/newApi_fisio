@@ -1,9 +1,10 @@
 import * as bd from '../repository/agendaPessoalRepository.js';
 import { Router } from "express";
+import { autenticar } from '../utils/jwt.js';
 
 const endpoint = Router();
 
-endpoint.post('/inserir/agendaPessoal', async (req, resp) => {
+endpoint.post('/inserir/agendaPessoal', autenticar, async (req, resp) => {
     try {
         const pessoal = req.body;
         const registro = await bd.inserirPessoalAgenda(pessoal);
@@ -13,7 +14,7 @@ endpoint.post('/inserir/agendaPessoal', async (req, resp) => {
     }
 });
 
-endpoint.get('/consulta/agendaPessoal', async (req, resp) => {
+endpoint.get('/consulta/agendaPessoal', autenticar, async (req, resp) => {
     try {
         const registros = await bd.consultarTodosPessoal();
         resp.send(registros);
@@ -23,7 +24,7 @@ endpoint.get('/consulta/agendaPessoal', async (req, resp) => {
     }
 });
 
-endpoint.put('/atualizar/agendaPessoal/:id', async (req, resp) => { 
+endpoint.put('/atualizar/agendaPessoal/:id', autenticar, async (req, resp) => { 
     try {
         const id = req.params.id;
         const pessoal = req.body;
@@ -44,7 +45,7 @@ endpoint.put('/atualizar/agendaPessoal/:id', async (req, resp) => {
     }
 });
 
-endpoint.delete('/deleta/agendaPessoal/:id', async (req, resp) => {
+endpoint.delete('/deleta/agendaPessoal/:id', autenticar, async (req, resp) => {
     try {
         const id = req.params.id;
 

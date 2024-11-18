@@ -1,6 +1,5 @@
 import con from './connection.js';
 
-
 export async function inserirUsuarioCliente(cliente) {
     const comando = `
         insert into tb_login_cliente (email, senha) 
@@ -20,7 +19,8 @@ export async function validarUsuarioCliente(cliente) {
     const comando = `
     select id_login_cliente,
     email
-    from tb_login_cliente where email = ? and senha = ?
+    from tb_login_cliente 
+    where email = ? and senha = ?
     `;
 
     let registros = await con.query(comando, [cliente.email, cliente.senha])

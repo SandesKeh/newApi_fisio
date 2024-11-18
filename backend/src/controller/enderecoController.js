@@ -1,9 +1,10 @@
 import * as db from '../repository/enderecoRepoditory.js';
 import { Router } from 'express';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoint = Router();
 
-endpoint.post('/inserir/endereco', async (req,resp) => {
+endpoint.post('/inserir/endereco', autenticar, async (req,resp) => {
     let enderecoObjs= req.body;
 
     let registro = await db.inserirEndereco(enderecoObjs);
@@ -13,12 +14,14 @@ endpoint.post('/inserir/endereco', async (req,resp) => {
     })
 })
 
-endpoint.get('/consultar/endereco', async (req,resp) => {
+endpoint.get('/consultar/endereco', autenticar, async (req,resp) => {
     let resgistro = await db.consultarEndereco()
     resp.send( resgistro)
     
 })
-endpoint.put('/alterar/endereco/:id', async (req,resp) =>{
+
+
+endpoint.put('/alterar/endereco/:id', autenticar, async (req,resp) =>{
     let enderecoObjs = req.body;
     let id = req.params.id;
 
@@ -29,7 +32,7 @@ endpoint.put('/alterar/endereco/:id', async (req,resp) =>{
     })
 })
 
-endpoint.delete('/deletar/endereco/:id', async (req,resp) => {
+endpoint.delete('/deletar/endereco/:id', autenticar, async (req,resp) => {
     let id = req.params.id;
 
     let registro = await db.deletarEndereco(id)

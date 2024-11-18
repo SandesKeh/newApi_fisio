@@ -2,6 +2,7 @@ import { gerarToken } from "../utils/jwt.js";
 import * as db from '../repository/userRepository.js'
 
 import {Router} from 'express';
+
 const endpoints = Router();
 
 

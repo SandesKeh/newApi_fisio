@@ -1,8 +1,11 @@
 import * as bd from '../repository/clienteAgentaRepository.js';
 import { Router } from 'express';
+import { autenticar } from '../utils/jwt.js';
+
+
 const endpoint =Router();
 
-endpoint.post('/inserir/agenda', async (req,resp) => {
+endpoint.post('/inserir/agenda', autenticar, async (req,resp) => {
     let clienteObj = req.body;
 
     let registro = await bd.inserirAgenda(clienteObj);

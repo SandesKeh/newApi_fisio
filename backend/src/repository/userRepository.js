@@ -19,8 +19,8 @@ export async function inserirUsuario(usuario) {
 export async function validarUsuario(usuario) {
     const comando = `
         select 
-            id_autonomo   id,
-            email         email
+            id_autonomo,
+            email
         from tb_login_autonomo 
         where 
             email = ?
