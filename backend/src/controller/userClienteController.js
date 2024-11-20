@@ -1,4 +1,4 @@
-import { gerarToken } from "../utils/jwt.js";
+import { autenticar, gerarToken } from "../utils/jwt.js";
 import * as db from '../repository/usuarioClienteRepository.js'
 
 import {Router} from 'express';
@@ -12,13 +12,13 @@ endpoints.post('/logincliente/', async (req, resp) => {
         let usuario = await db.validarUsuarioCliente(cliente);
 
 
-        if (cliente == null) {
-            resp.send({ erro: "Usuário ou senha incorreto(s)"})
+        if (usuario == null) {
+            resp.send({ erro: "Usuário ou senha incorreto(s)"});
         }else {
             let chaveToken = gerarToken(usuario);
             resp.send({
-                "token": chaveToken
-            })
+                token: chaveToken
+            });
         }
     } catch (err) {
         resp.status(400).send({

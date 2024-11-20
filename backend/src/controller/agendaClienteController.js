@@ -9,7 +9,9 @@ endpoint.post('/inserir/agendaCliente', autenticar, async (req, resp) => {
     try {
         const cliente = req.body;
         const registro = await bd.inserirClienteAgenda(cliente);
+        
         resp.send({ novoId: registro });
+
     } catch (err) {
         resp.status(400).send({ erro: err.message });
     }

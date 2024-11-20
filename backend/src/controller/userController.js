@@ -1,30 +1,26 @@
-import { gerarToken } from "../utils/jwt.js";
 import * as db from '../repository/userRepository.js'
 
-import {Router} from 'express';
+import { Router } from 'express';
+import { gerarToken, autenticar } from "../utils/jwt.js";
 
 const endpoints = Router();
 
 
-endpoints.post('/login/', async (req, resp) => {
+endpoints.post('/login/', autenticar, async (req, resp) => {
     try {
-        let usuario = req.body;
+        let pessoa = req.body;
 
-        let autonomo = await db.validarUsuario(usuario);
-
-
+        let autonomo = await db.validarUsuario(pessoa);
         if (autonomo == null) {
-            resp.send({ erro: "Usuário ou senha incorreto(s)"})
+            resp.send({ erro: "Usuário ou senha incorreto(s)"});
         }else {
             let chaveToken = gerarToken(autonomo);
             resp.send({
-                "token": chaveToken
-            })
+                token: chaveToken
+            });
         }
     } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        })
+        resp.status(500).send({ erro: 'Erro interno do servidor.' });
     }
 })
 
@@ -32,9 +28,9 @@ endpoints.post('/login/', async (req, resp) => {
 
 endpoints.post('/usuario/', async (req, resp) => {
     try {
-        let usuario = req.body;
+        let pessoa = req.body;
 
-        let id = await db.inserirUsuario(usuario);
+        let id = await db.inserirUsuario(pessoa);
 
         resp.send({
             novoId: id

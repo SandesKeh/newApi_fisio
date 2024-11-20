@@ -7,7 +7,7 @@ import { autenticar } from '../utils/jwt.js';
 const endpoints = Router();
 
 
-endpoints.get('/despesas/',autenticar, async (req, resp) =>{
+endpoints.get('/despesas/', autenticar, async (req, resp) =>{
     try {
         let registros = await db.consultarDespesas();
         resp.send(registros);
@@ -24,7 +24,7 @@ endpoints.get('/despesas/',autenticar, async (req, resp) =>{
 endpoints.post('/inserir/despesas/', autenticar, async (req, resp) => {
     try {
         let despesa = req.body;
-
+        despesa.idUsuario = req.user.id;
         let id = await db.inserirDespesas(despesa);
 
         resp.send({
@@ -50,7 +50,7 @@ endpoints.get('/consultar/despesas/:id', autenticar, async (req, resp) =>{
     }
 })
 
-endpoints.put('/update/despesa/:propriedade/:categoriaFinanceira/:descricao/:valor/:dataPagamento/:id', autenticar, async (req, resp) =>{
+endpoints.put('/update/despesas/:propriedade/:categoriaFinanceira/:descricao/:valor/:dataPagamento/:id', autenticar, async (req, resp) =>{
     let {propriedade, categoriaFinanceira , descricao, valor, dataPagamento, id} = req.params;
     let comando = await db.alterarDespesas(propriedade, categoriaFinanceira, descricao, valor, dataPagamento, id);
     resp.send({mensagem: "update com sucesso"});
