@@ -17,7 +17,7 @@ endpoints.post('/logincliente/', async (req, resp) => {
         }else {
             let chaveToken = gerarToken(usuario);
             resp.send({
-                token: chaveToken
+                "token": chaveToken
             });
         }
     } catch (err) {

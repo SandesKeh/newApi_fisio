@@ -16,7 +16,7 @@ endpoints.post('/login/', autenticar, async (req, resp) => {
         }else {
             let chaveToken = gerarToken(autonomo);
             resp.send({
-                token: chaveToken
+                "token": chaveToken
             });
         }
     } catch (err) {
