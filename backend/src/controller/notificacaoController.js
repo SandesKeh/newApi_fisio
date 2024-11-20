@@ -9,6 +9,7 @@ const endpoint = Router();
 endpoint.post('/inserir/notificacao', autenticar, async (req, resp) => {
     try {
         let notificacao = req.body;
+        notificacao.idUsuario = req.user.id;
         let registro = await bd.inserirNotificacao(notificacao);
         resp.send({
             novoId: registro

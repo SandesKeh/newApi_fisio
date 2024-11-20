@@ -7,6 +7,7 @@ const endpoint = Router();
 endpoint.post('/inserir/infoPessoal', autenticar, async (req,resp) => {
     try{
         let pessoaisObj = req.body;
+        pessoaisObj.idUsuario = req.user.id;
 
         let id = await bd.inserirInfPessoais(pessoaisObj);
     

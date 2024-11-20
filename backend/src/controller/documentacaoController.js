@@ -37,6 +37,8 @@ endpoints.get('/consultar/usuario/documento/:id', autenticar, async (req, resp) 
 endpoints.post('/documentacao/', autenticar, async (req, resp) => {
     try {
         let documentacao = req.body;
+        documentacao.idUsuario = req.user.id;
+
 
         let id = await db.inserirDocumentacao(documentacao);
 

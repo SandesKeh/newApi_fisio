@@ -7,6 +7,8 @@ const endpoint = Router();
 endpoint.post('/inserir/agendaPessoal', autenticar, async (req, resp) => {
     try {
         const pessoal = req.body;
+        cliente.idUsuario = req.user.id;
+
         const registro = await bd.inserirPessoalAgenda(pessoal);
 
         resp.send({ novoId: registro });

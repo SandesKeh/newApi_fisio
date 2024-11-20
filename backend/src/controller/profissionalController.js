@@ -36,6 +36,9 @@ endpoints.get('/consultar/usuario/profissional/:id', autenticar, async (req, res
 endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', autenticar, async (req, resp) => {
     try {
         let {nome, email, acesso} = req.params;
+        nome.idUsuario = req.user.id;
+        email.idUsuario = req.user.id;
+        acesso.idUsuario = req.user.id;
 
         let id = await db.inserirProfissional(nome, email, acesso);
 

@@ -24,6 +24,7 @@ endpoints.get('/receitas/', autenticar, async (req, resp) =>{
 endpoints.post('/receitas/', autenticar, async (req, resp) => {
     try {
         let receita = req.body;
+        receita.idUsuario = req.user.id;
 
         let id = await db.inserirReceitas(receita);
 

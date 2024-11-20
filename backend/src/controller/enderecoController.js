@@ -6,6 +6,8 @@ const endpoint = Router();
 
 endpoint.post('/inserir/endereco', autenticar, async (req,resp) => {
     let enderecoObjs= req.body;
+    enderecoObjs.idUsuario = req.user.id;
+
 
     let registro = await db.inserirEndereco(enderecoObjs);
 

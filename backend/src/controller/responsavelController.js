@@ -6,6 +6,7 @@ const endpoint = Router();
 
 endpoint.post('/inserir/responsavel', autenticar, async (req,resp) => {
     let responsavelObj = req.body;
+    responsavelObj.idUsuario = req.user.id;
 
     let registro = await db.inserirResponsavel(responsavelObj)
 

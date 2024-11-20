@@ -7,6 +7,8 @@ const endpoint = Router();
 endpoint.post('/insert/pacotes/:nome/:valor', autenticar, async (req,resp) => {
     try{
         let {nome, valor} = req.params;
+        nome.idUsuario = req.user.id;
+        valor.idUsuario = req.user.id;
     
         let id = await db.inserirPacotes(nome, valor);
 

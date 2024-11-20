@@ -26,6 +26,14 @@ endpoints.post('/inserir/inventario/:produto/:categoria/:estoque/:local/:precoUn
     try {
 
         let { produto, categoria, estoque, local, precoUnitario, valorTotal, data } = req.params;
+        produto.idUsuario = req.user.id;
+        categoria.idUsuario = req.user.id;
+        estoque.idUsuario = req.user.id;
+        local.idUsuario = req.user.id;
+        precoUnitario.idUsuario = req.user.id;
+        valorTotal.idUsuario = req.user.id; 
+        data.idUsuario = req.user.id;
+
 
         let id = await db.inserirInventario(produto, categoria, estoque, local, precoUnitario, valorTotal, data);
 

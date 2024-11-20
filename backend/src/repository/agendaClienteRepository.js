@@ -37,7 +37,7 @@ export async function consultarClientePorId(id) {
     return registro; 
 }
 
-export async function atualizarCliente(id, cliente,status) {
+export async function atualizarCliente(id, cliente, status) {
     const comando = `
         UPDATE tb_cliente_cadastro_agenda
         SET status =?

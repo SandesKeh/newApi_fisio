@@ -8,6 +8,8 @@ endpoint.post('/inserir/financeiro', autenticar, async (req,resp) => {
     try {
         
         let financeiroObj = req.body;
+        financeiroObj.idUsuario = req.user.id;
+
         let id = await db.inserirFinanceiro(financeiroObj);
 
         resp.send({
