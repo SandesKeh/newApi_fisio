@@ -15,12 +15,13 @@ export function autenticar(req, resp, next) {
 
 export function autenticacao(req, resp, next) {
     try {
-        let chaveToken = req.headers['acesso-ao-token'];
+        let chaveToken = req.headers['acesso-ao-token'] || req.query['acesso-ao-token'];
 
-        if (chaveToken === undefined) {
-            chaveToken = req.query['acesso-ao-token']
+        if (!chaveToken) {
+            return resp.status(401).send({ error: 'Token não fornecido.' });
         }
 
+        
         let acesso = jwt.verify(chaveToken, KEY)
         req.user = acesso;
         next();

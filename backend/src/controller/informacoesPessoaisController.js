@@ -85,7 +85,7 @@ endpoint.delete('/deletar/infoPessoas/:id', autenticar, async (req, resp) => {
         let linhasAfetadas = await bd.deletaPessoas(id); 
         if (linhasAfetadas === 0) {
             return resp.status(500).send({
-                resposta: "não foi encontrado ninguem..."
+                resposta: "Nenhuma pessoa encontrada"
             });
         } else {
             return resp.send({ resposta: "Removido com sucesso!" });
@@ -106,14 +106,11 @@ endpoint.put('/update/infoPessoas/:id', autenticar, async (req, resp) => {
         let id = req.params.id;
 
         let registro = await bd.updatePessoas(pessoaisObj, id);
-            if (registro =  undefined) {
-                resp.send({
-                    resposta: "alterado com sucesso"
-                }) 
-            }
-            else {
-                resp.status(404).send({erro: 'Nenhuma pessoal encontrada'})
-            }
+        if (registro === undefined) {
+            resp.send({ resposta: "Alterado com sucesso" });
+        } else {
+            resp.status(404).send({ erro: "Nenhuma pessoa encontrada" });
+        }
     
     } catch(err) {
         resp.status(400).send({

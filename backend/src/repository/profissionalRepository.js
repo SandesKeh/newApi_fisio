@@ -61,7 +61,7 @@ export async function alterarProfissional( nome, email, acesso, id) {
 }
 
 
-export async function removerInventario(id) {
+export async function removerProfissional(id) {
     const comando = `
         delete from tb_adicionar_profissional
          where id_adicionar_profissional = ?;

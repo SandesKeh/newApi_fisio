@@ -36,11 +36,9 @@ endpoints.get('/consultar/usuario/profissional/:id', autenticar, async (req, res
 endpoints.post('/inseir/usuario/profissional/:nome/:email/:acesso', autenticar, async (req, resp) => {
     try {
         let {nome, email, acesso} = req.params;
-        nome.idUsuario = req.user.id;
-        email.idUsuario = req.user.id;
-        acesso.idUsuario = req.user.id;
+        let idUsuario = req.user.id;
 
-        let id = await db.inserirProfissional(nome, email, acesso);
+        let id = await db.inserirProfissional(nome, email, acesso, idUsuario);
 
         resp.send({
             novoId: id
@@ -64,7 +62,7 @@ endpoints.delete('/usuario/profissional:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 
-        let linhasAfetadas = await db.removerInventario(id);
+        let linhasAfetadas = await db.removerProfissional(id);
             if (linhasAfetadas >= 1) {
                 resp.send();
             } else {
