@@ -69,24 +69,26 @@ cpf varchar(11) unique,
 telefone varchar(200) unique
 );
 
+drop table tb_pessoal_cadastro_agenda;
+drop table tb_cliente_cadastro_agenda;
+
+
 create table tb_cliente_cadastro_agenda (
 id int primary key auto_increment,
-nome VARCHAR(200),
-data DATE,
-horario TIME,
-repetir boolean,
-modo VARCHAR(10),
-servico VARCHAR (50),
+name VARCHAR(200),
+date DATE,
+time TIME,
+mode VARCHAR(10),
+service VARCHAR (50),
 status VARCHAR(22)
 );
 
 create table tb_pessoal_cadastro_agenda (
 id int primary key auto_increment,
-nome VARCHAR(200),
-data DATE,
-repetir boolean,
-horario TIME,
-modo VARCHAR(10),
+name VARCHAR(200),
+date DATE,
+time TIME,
+mode VARCHAR(10),
 status VARCHAR(22)
 );
 create   table tb_adicionar_receita(

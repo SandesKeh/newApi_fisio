@@ -47,6 +47,23 @@ endpoints.post('/inserir/inventario/:produto/:categoria/:estoque/:local/:precoUn
     }
 });
 
+endpoints.post('/inseir/usuario/inventario/:produto/:categoria/:estoque/:local/:precoUnitario/:valorTotal/:data', autenticar, async (req, resp) => {
+    try {
+        let {produto, categoria, estoque, local, precoUnitario, valorTotal, data} = req.params;
+        let idUsuario = req.user.id;
+
+        let id = await db.inserirProfissional(produto, categoria, estoque, local, precoUnitario, valorTotal, data, idUsuario);
+
+        resp.send({
+            novoId: id
+        })
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
 
 
 endpoints.put('/atualizar/inventario/:produto/:categoria/:estoque/:local/:precoUnitario/:valorTotal/:data/:id', autenticar, async (req, resp) => {

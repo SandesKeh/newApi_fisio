@@ -15,6 +15,18 @@ export async function inserirDocumentacao(documentacao) {
 
     return info.insertId;
 }
+export async function inserirDocumentacaoparams(tipo, titulo, conteudo, dataCadastro) {
+    const comando = `
+        insert into tb_adicionar_profissional (tipo, titulo, conteudo, dataCadastro)
+                           values (?,?,?,?);
+    `;
+
+    let resposta = await con.query(comando, [tipo, titulo, conteudo, dataCadastro]);
+
+    let info = resposta[0];
+
+    return info.insertId
+}
 
 
 export async function consultarDocumentacao() {

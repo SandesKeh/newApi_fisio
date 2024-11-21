@@ -2,15 +2,14 @@ import con from "./connection.js";
 
 export async function inserirClienteAgenda(cliente) {
     const comando = `
-        INSERT INTO tb_cliente_cadastro_agenda(name, date, time, retun, mode, service)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO tb_cliente_cadastro_agenda(name, date, time, mode, service)
+        VALUES (?, ?, ?, ?, ?)
     `;
 
     const [registro] = await con.query(comando, [
         cliente.name,
         cliente.date,
         cliente.time,
-        cliente.retun,
         cliente.mode,
         cliente.service,
         cliente.status,

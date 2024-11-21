@@ -52,6 +52,23 @@ endpoints.post('/documentacao/', autenticar, async (req, resp) => {
     }
 })
 
+endpoints.post('/inseir/documento/:tipo/:titulo/:conteudo/:dataCadastro', autenticar, async (req, resp) => {
+    try {
+        let {tipo, titulo, conteudo, dataCadastro} = req.params;
+        let idUsuario = req.user.id;
+
+        let id = await db.inserirDocumentacaoparams(tipo, titulo, conteudo, dataCadastro);
+
+        resp.send({
+            novoId: id
+        })
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
 endpoints.put('/update/documento/:tipo/:titulo/:conteudo/:dataCadastro/:id', autenticar, async (req, resp) =>{
     let {tipo, titulo, conteudo, dataCadastro, id} = req.params;
 
@@ -61,7 +78,7 @@ endpoints.put('/update/documento/:tipo/:titulo/:conteudo/:dataCadastro/:id', aut
 })
 
 
-endpoints.delete('/documentacao/:id', autenticar, async (req, resp) => {
+endpoints.delete('/deletar/documentacao/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 
