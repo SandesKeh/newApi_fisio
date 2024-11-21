@@ -58,7 +58,7 @@ endpoints.put('/update/profissional/:nome/:email/:acesso/:id', autenticar, async
 })
 
 
-endpoints.delete('/usuario/profissional:id', autenticar, async (req, resp) => {
+endpoints.delete('/deletar/usuario/profissional/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 
