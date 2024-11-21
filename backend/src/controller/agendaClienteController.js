@@ -11,9 +11,7 @@ endpoint.post('/inserir/agendaCliente', autenticar, async (req, resp) => {
         cliente.idUsuario = req.user.id;
 
         const registro = await bd.inserirClienteAgenda(cliente);
-        
         resp.send({ novoId: registro });
-
     } catch (err) {
         resp.status(400).send({ erro: err.message });
     }
@@ -68,5 +66,6 @@ endpoint.delete('/deleta/agendaCliente/:id', autenticar, async (req, resp) => {
         return resp.status(400).send({ erro: err.message });
     }
 });
+
 
 export default endpoint;
