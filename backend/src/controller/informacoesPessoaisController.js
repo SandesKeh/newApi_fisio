@@ -106,7 +106,7 @@ endpoint.put('/update/infoPessoas/:id', autenticar, async (req, resp) => {
         let id = req.params.id;
 
         let registro = await bd.updatePessoas(pessoaisObj, id);
-        if (registro === undefined) {
+        if (registro != undefined) {
             resp.send({ resposta: "Alterado com sucesso" });
         } else {
             resp.status(404).send({ erro: "Nenhuma pessoa encontrada" });

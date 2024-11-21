@@ -62,7 +62,7 @@ export async function deletaPessoas(id) {
     return fim.affectedRows;
 }
 
-export async function updatePessoas(nome, email, celular, cpf, rg, pais, cep, cidade, estado, endereco, numero,  id) {
+export async function updatePessoas(pessoaisObj, id) {
     let comando = `
         update tb_informacoes_pessoais
         set  nome = ?,
