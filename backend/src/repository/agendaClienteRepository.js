@@ -3,13 +3,12 @@ import con from "./connection.js";
 
 export async function inserirClienteAgenda(cliente) {
     const comando = `
-        INSERT INTO db_autonomo_api.tb_cliente_cadastro_agenda(name,cpf, date, time, mode, service)
-        VALUES (?, ?, ?,?, ?, ?)
+        INSERT INTO db_autonomo_api.tb_cliente_cadastro_agenda(name, date, time, mode, service)
+        VALUES (?, ?, ?,?, ?)
     `;
 
     const [registro] = await con.query(comando, [
         cliente.name,
-        cliente.cpf,
         cliente.date,
         cliente.time,
         cliente.mode,
