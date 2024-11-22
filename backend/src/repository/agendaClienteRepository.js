@@ -3,7 +3,7 @@ import con from "./connection.js";
 
 export async function inserirClienteAgenda(cliente) {
     const comando = `
-        INSERT INTO tb_cliente_cadastro_agenda(name,cpf, date, time, mode, service)
+        INSERT INTO db_autonomo_api.tb_cliente_cadastro_agenda(name,cpf, date, time, mode, service)
         VALUES (?, ?, ?,?, ?, ?)
     `;
 
@@ -31,7 +31,7 @@ SELECT * FROM db_autonomo_api.tb_cliente_cadastro_agenda;
 
 export async function consultarClientePorId(id) {
     const comando = `
-        SELECT * FROM tb_cliente_cadastro_agenda WHERE id = ?;
+        SELECT * FROM db_autonomo_api.tb_cliente_cadastro_agenda WHERE id = ?;
     `;
 
     const [registro] = await con.query(comando, [id]);
@@ -41,7 +41,7 @@ export async function consultarClientePorId(id) {
 // Função para consultar a agenda de um cliente pelo CPF
 export async function consultarClientePorCPF(cpf) {
   const comando = `
-    SELECT * FROM tb_cliente_cadastro_agenda WHERE cpf = ?;
+    SELECT * FROM db_autonomo_api.tb_cliente_cadastro_agenda WHERE cpf = ?;
   `;
   
   // Retorna uma Promise que resolve ou rejeita com os resultados ou erro
