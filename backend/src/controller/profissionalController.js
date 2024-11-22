@@ -74,4 +74,8 @@ endpoints.delete('/deletar/usuario/profissional/:id', autenticar, async (req, re
         })
     }
 })
+
+
+
+
 export default endpoints;

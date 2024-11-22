@@ -36,6 +36,19 @@ export async function consultarReceitas() {
     return registros;
 }
 
+export async function consultarReceitaPorId(id ) {
+    const comando = `
+        select * from tb_adicionar_receita where id_adicionar_receita= ?
+    `;
+
+
+    let respostas = await con.query(comando, [id]);
+    let registros = respostas[0];
+    
+    return registros[0];
+
+}
+
 
 export async function alterarReceitas(id) {
     const comando = `
@@ -56,7 +69,6 @@ export async function alterarReceitas(id) {
 
     return info.affectedRows;
 }
-
 
 export async function removerReceitas(id) {
     const comando = `
