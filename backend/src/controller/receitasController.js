@@ -7,7 +7,7 @@ import { autenticar } from '../utils/jwt.js';
 const endpoints = Router();
 
 
-endpoints.get('/consultar/receitas/', autenticar, async (req, resp) =>{
+endpoints.get('/receitas/', autenticar, async (req, resp) =>{
     try {
         let registros = await db.consultarReceitas();
         resp.send(registros);
