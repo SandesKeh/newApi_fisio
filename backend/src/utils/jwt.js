@@ -26,7 +26,7 @@ export function gerarToken(userInfo) {
   
     //   let signd = jwt.verify(token, KEY);
   
-    //   req.user = signd;
+       req.user = { id: 1 };
       
       next();
   
