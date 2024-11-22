@@ -76,6 +76,7 @@ drop table tb_cliente_cadastro_agenda;
 create table tb_cliente_cadastro_agenda (
 id int primary key auto_increment,
 name VARCHAR(200),
+cpf varchar(14) unique,
 date DATE,
 time TIME,
 mode VARCHAR(10),
@@ -141,21 +142,23 @@ lembrete_sessao_sms boolean,
 msg_aniversario_sms boolean
 );
 
+drop table tb_login_cliente;
+
 create table tb_login_cliente(
 id_login_cliente int primary key auto_increment,
-email varchar(200),
+cpf varchar(14) unique,
 senha varchar(200)
 );
 
 select * from tb_login_cliente;
 
-insert into tb_login_cliente (email, senha) 
-                        values ("teste", "teste");
+insert into tb_login_cliente (cpf, senha) 
+                        values ("507.640.508-18", "adm");
                         
       select id_login_cliente,
-      email
-      from tb_login_cliente where email = "teste" and senha = "teste"; 
-
+      cpf
+      from tb_login_cliente where cpf = "507.640.508-18" and senha = "adm"; 
+      
 create table tb_inventario(
 id_inventario int auto_increment primary key,
 nome_produto varchar(200),

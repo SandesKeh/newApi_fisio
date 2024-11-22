@@ -26,6 +26,27 @@ endpoint.get('/consulta/agendaCliente', autenticar, async (req, resp) => {
     }
 });
 
+
+
+// Endpoint para consultar a agenda do cliente com base no CPF
+endpoint.get('/consulta/agendaClienteCPF/:cpf', autenticar, async (req, res) => {
+    try {
+      const cpf = req.params.cpf;  // CPF passado pela URL
+      // Chama o repository para consultar a agenda do cliente
+      const registro = await bd.consultarClientePorCPF(cpf);
+  
+      // Se não encontrar nenhum registro, retorna um erro 404
+      if (!registro || registro.length === 0) {
+        return res.status(404).send({ erro: 'Não foram encontrados eventos para esse CPF.' });
+      }
+  
+      // Se encontrar o registro, retorna ele
+      res.send(registro);
+    } catch (err) {
+      // Se houver erro no processo, retorna o erro com código 500
+      res.status(500).send({ erro: 'Erro ao consultar a agenda do cliente. Tente novamente mais tarde.' });
+    }
+  });
 endpoint.put('/atualizar/agendaCliente/:id', autenticar, async (req, resp) => { 
     try {
         const id = req.params.id;
