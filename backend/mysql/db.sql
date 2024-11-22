@@ -94,9 +94,9 @@ mode VARCHAR(10),
 status VARCHAR(22)
 );
 
-create   table tb_adicionar_receita(
+create    table tb_adicionar_receita(
 id_adicionar_receita int auto_increment primary key,
-proriedade varchar(200),
+propriedade varchar(200),
 categoria_financeira varchar(200),
 descricao varchar(200),
 valor varchar(200),
