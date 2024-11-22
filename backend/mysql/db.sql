@@ -10,7 +10,7 @@ senha varchar(200)
 );
 
 insert into tb_login_autonomo( email, senha)
-values (?,?);
+values ("danielarodrigues@gmail.com","fisiosaude");
 
 
 create  table tb_informacoes_pessoais(
@@ -42,6 +42,7 @@ select * from tb_informacoes_pessoais where id_informacoes_pessoais = 2;
 select * from tb_informacoes_pessoais;
 
 select * from tb_pacotes;
+
 create  table tb_pacotes(
 id_pacotes int auto_increment primary key,
 nome varchar(200),
@@ -91,6 +92,7 @@ time TIME,
 mode VARCHAR(10),
 status VARCHAR(22)
 );
+
 create   table tb_adicionar_receita(
 id_adicionar_receita int auto_increment primary key,
 proriedade varchar(200),
@@ -108,9 +110,9 @@ id_adicionar_despesa int auto_increment primary key,
 propriedade varchar(200),
 categoria_financeira varchar(200),
 descricao varchar(200),
-valor text,
-data_pagamento varchar(200)
-
+valor varchar(200),
+data_pagamento varchar(200),
+forma_pagamento varchar(200)
 );
 
 select * from tb_adicionar_profissional;
