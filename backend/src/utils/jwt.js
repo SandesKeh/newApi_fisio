@@ -24,9 +24,9 @@ export function gerarToken(userInfo) {
       if (token === undefined)
         token = req.query['acesso-ao-token']
   
-      let signd = jwt.verify(token, KEY);
+    //   let signd = jwt.verify(token, KEY);
   
-      req.user = signd;
+    //   req.user = signd;
       
       next();
   
